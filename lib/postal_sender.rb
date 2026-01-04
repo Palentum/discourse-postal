@@ -3,19 +3,24 @@ require 'uri'
 require 'json'
 
 class PostalSender
+  # 修复关键点：添加这一行，让外部可以访问 settings
+  attr_accessor :settings
+
   def initialize(values)
-    @settings = values
+    @settings = values || {}
   end
 
   def deliver!(mail)
     # 检查是否启用了插件
     return unless SiteSetting.postal_enabled
 
+    # 直接读取 Discourse 的 SiteSetting，支持热更改，无需重启
     endpoint = SiteSetting.postal_endpoint
     api_key = SiteSetting.postal_api_key
 
     if endpoint.blank? || api_key.blank?
       Rails.logger.error("Postal Plugin: Endpoint or API Key is missing.")
+      # 抛出错误可以让 Sidekiq 捕获并稍后重试，而不是静默失败
       raise "Postal configuration missing"
     end
 
@@ -73,7 +78,7 @@ class PostalSender
     http = Net::HTTP.new(uri.host, uri.port)
     http.use_ssl = (uri.scheme == 'https')
     
-    # 设置超时，防止阻塞 Discourse 队列太久
+    # 设置超时
     http.open_timeout = 5
     http.read_timeout = 10
 
@@ -88,7 +93,6 @@ class PostalSender
     unless response.code.to_i >= 200 && response.code.to_i < 300
       error_msg = "Postal API Error: #{response.code} - #{response.body}"
       Rails.logger.error(error_msg)
-      # 抛出异常以便 Sidekiq 可以重试
       raise error_msg
     end
     
