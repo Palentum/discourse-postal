@@ -1,8 +1,0 @@
-cat > /var/www/discourse/plugins/discourse-postalapi/config/locales/server.zh_CN.yml << 'EOF'
-zh_CN:
-  site_settings:
-    postal_mailer_enabled: "启用 Postal 邮件发送"
-    postal_api_url: "Postal API 地址 (例如: https://postal.example.com)"
-    postal_api_key: "Postal API 密钥"
-    postal_from_address: "默认发件人地址"
-EOF
