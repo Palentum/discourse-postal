@@ -1,6 +1,9 @@
+mkdir -p /var/www/discourse/plugins/discourse-postalapi/config/locales
+cat > /var/www/discourse/plugins/discourse-postalapi/config/locales/server.en.yml << 'EOF'
 en:
   site_settings:
-    postal_mailer_enabled: "Enable Postal API"
-    postal_api_url: "Postal API URL"
+    postal_mailer_enabled: "Enable Postal Mailer"
+    postal_api_url: "Postal API URL (e.g., https://postal.example.com)"
     postal_api_key: "Postal API Key"
-    postal_from_address: "Sender Address"
+    postal_from_address: "Default From Address"
+EOF

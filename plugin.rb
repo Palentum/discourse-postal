@@ -119,10 +119,3 @@ after_initialize do
     Rails.logger.info("Postal Mailer: Enabled and configured")
   end
 end
-
-# 设置定义
-# config/settings.yml
-register_setting :postal_mailer_enabled, false
-register_setting :postal_api_url, '', type: :string, min: 1
-register_setting :postal_api_key, '', type: :string, secret: true, min: 1
-register_setting :postal_from_address, '', type: :string, min: 1
