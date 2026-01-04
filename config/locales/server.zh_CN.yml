@@ -1,0 +1,6 @@
+zh_CN:
+  site_settings:
+    postal_mailer_enabled: "启用 Postal 邮件发送"
+    postal_api_url: "Postal API URL"
+    postal_api_key: "Postal API Key"
+    postal_from_address: "发件人地址"
