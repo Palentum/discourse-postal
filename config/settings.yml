@@ -1,17 +1,16 @@
-mkdir -p /var/www/discourse/plugins/discourse-postalapi/config
 cat > /var/www/discourse/plugins/discourse-postalapi/config/settings.yml << 'EOF'
 plugins:
   postal_mailer_enabled:
     default: false
     client: true
   postal_api_url:
-    default: ''
+    default: ""
     client: false
   postal_api_key:
-    default: ''
+    default: ""
     secret: true
     client: false
   postal_from_address:
-    default: ''
+    default: ""
     client: false
 EOF
